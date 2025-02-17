@@ -1,9 +1,9 @@
 <template>
-  <header>
+  <header v-if="isLoggedIn">
     <nav>
-      <router-link to="/">Home</router-link>
-      <router-link to="/skills">Skills</router-link>
-      <router-link to="/contact">Contact</router-link>
+      <router-link to="/projects">Projects</router-link>
+      <router-link to="/add-new-project">Add New Project</router-link>
+      <button v-on:click="logout()">Log out</button>
     </nav>
   </header>
   <main>
@@ -15,10 +15,22 @@
 import { RouterView, RouterLink } from "vue-router";
 
 export default {
+  data() {
+    return {
+      isLoggedIn: localStorage.getItem('isLogIn'),
+    }
+  },
   components: {
     RouterView,
     RouterLink,
   },
+  methods: {
+    logout() {
+      localStorage.removeItem("isLogIn")
+      localStorage.removeItem("role")
+      document.location.href = "/login"
+    }
+  }
 };
 </script>
 
@@ -34,7 +46,7 @@ body {
 
 /* Header Styles */
 header {
-  background-color: #333;
+  background-color: #551111;
   color: #fff;
   padding: 1rem 0;
   text-align: center;
@@ -59,7 +71,7 @@ nav a:hover {
 }
 
 nav a.router-link-exact-active {
-  background-color: #007bff;
+  background-color: #93adc9;
   color: #fff;
 }
 
